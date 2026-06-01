@@ -1,0 +1,261 @@
+/* ── RESET ───────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+/* ── COLORES SUAVES ───────────────────── */
+:root {
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --primary: #4a90e2;
+  --secondary: #50c9a8;
+  --text: #2c3e50;
+  --muted: #7f8c8d;
+  --shadow: 0 4px 12px rgba(0,0,0,0.07);
+  --radius: 12px;
+}
+
+/* ── BODY ───────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ── HEADER ─────────────────────────── */
+header {
+  text-align: center;
+  padding: 20px;
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+header h1 {
+  font-size: 28px;
+}
+
+/* ── NAV PRINCIPAL ──────────────────── */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  background: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all 0.3s;
+}
+
+.nav-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ── SECCIONES ─────────────────────── */
+.content-section,
+.main-section {
+  display: none;
+  padding: 20px;
+}
+
+.content-section:first-of-type {
+  display: block;
+}
+
+/* ── TARJETAS ─────────────────────── */
+.unit-panel,
+.calc-panel,
+.quiz {
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--radius);
+  margin-top: 15px;
+  box-shadow: var(--shadow);
+  animation: fade 0.4s ease-in-out;
+}
+
+@keyframes fade {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* ── SUBMENÚ UNIDADES ──────────────── */
+.unit-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.unit {
+  padding: 8px 14px;
+  border: none;
+  background: var(--secondary);
+  color: white;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.unit:hover {
+  opacity: 0.85;
+}
+
+/* ── BOTONES TEMAS ─────────────────── */
+.topics-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.topic-btn {
+  padding: 10px;
+  border: none;
+  border-radius: var(--radius);
+  background: #ecf2f8;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.topic-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ── FORMULARIOS ───────────────────── */
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.field label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+  margin-top: 4px;
+}
+
+/* ── BOTÓN CALCULAR ───────────────── */
+.calc-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.calc-btn:hover {
+  background: #357abd;
+}
+
+/* ── RESULTADOS ───────────────────── */
+.result-box {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: var(--radius);
+  background: #f0f5fc;
+}
+
+.result-main {
+  font-size: 24px;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.result-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.result-card {
+  flex: 1;
+  background: white;
+  padding: 10px;
+  border-radius: var(--radius);
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.result-card .val {
+  font-weight: bold;
+}
+
+.result-card .green {
+  color: var(--secondary);
+}
+
+/* ── QUIZ ─────────────────────────── */
+.question {
+  margin: 15px 0;
+}
+
+.submit-btn {
+  background: var(--secondary);
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+#resultado-quiz {
+  margin-top: 15px;
+  padding: 15px;
+  background: #eaf7f1;
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+/* ── RESPONSIVE ───────────────────── */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 22px;
+  }
+
+  .nav-btn {
+    flex: 1 1 100%;
+  }
+
+  .fields {
+    grid-template-columns: 1fr;
+  }
+
+  .result-grid {
+    flex-direction: column;
+  }
+}
