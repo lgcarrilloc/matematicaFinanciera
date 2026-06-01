@@ -3,19 +3,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-family: "Segoe UI", Roboto, sans-serif;
 }
 
-/* ── COLORES SUAVES ───────────────────── */
+/* ── COLORES PROFESIONALES ───────────── */
 :root {
-  --bg: #f4f7fb;
+  --bg: #f8fafc;
   --card: #ffffff;
-  --primary: #4a90e2;
-  --secondary: #50c9a8;
-  --text: #2c3e50;
-  --muted: #7f8c8d;
-  --shadow: 0 4px 12px rgba(0,0,0,0.07);
-  --radius: 12px;
+  --primary: #1e3a8a;     /* azul oscuro elegante */
+  --secondary: #059669;   /* verde financiero */
+  --accent: #3b82f6;      /* azul brillante */
+  --text: #1f2937;
+  --muted: #6b7280;
+  --shadow: 0 6px 18px rgba(0,0,0,0.08);
+  --radius: 14px;
 }
 
 /* ── BODY ───────────────────────────── */
@@ -28,83 +29,111 @@ body {
 /* ── HEADER ─────────────────────────── */
 header {
   text-align: center;
-  padding: 20px;
-  background: var(--primary);
+  padding: 25px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
   color: white;
   box-shadow: var(--shadow);
 }
 
 header h1 {
-  font-size: 28px;
+  font-size: 30px;
+  font-weight: 600;
 }
 
-/* ── NAV PRINCIPAL ──────────────────── */
+/* ── NAV PRINCIPAL ─────────────────── */
 .main-nav {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  padding: 12px;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
   flex-wrap: wrap;
 }
 
+/* BOTONES PRINCIPALES */
 .nav-btn {
-  background: white;
+  background: var(--card);
   border: none;
-  padding: 10px 18px;
-  border-radius: var(--radius);
+  padding: 12px 20px;
+  border-radius: 999px;
   cursor: pointer;
   box-shadow: var(--shadow);
-  transition: all 0.3s;
+  transition: 0.3s;
+  font-weight: 500;
 }
 
+/* HOVER */
 .nav-btn:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* ACTIVO */
+.nav-btn.active {
   background: var(--primary);
   color: white;
-  transform: translateY(-2px);
 }
 
 /* ── SECCIONES ─────────────────────── */
 .content-section,
 .main-section {
   display: none;
-  padding: 20px;
+  padding: 25px;
 }
 
-.content-section:first-of-type {
-  display: block;
+/* ACTIVAR */
+.active {
+  display: block !important;
 }
 
 /* ── TARJETAS ─────────────────────── */
 .unit-panel,
-.calc-panel,
-.quiz {
+.calc-panel {
+  display: none;
   background: var(--card);
-  padding: 20px;
+  padding: 22px;
   border-radius: var(--radius);
-  margin-top: 15px;
+  margin-top: 18px;
   box-shadow: var(--shadow);
-  animation: fade 0.4s ease-in-out;
+  animation: fade 0.35s ease;
 }
 
+.unit-panel.active,
+.calc-panel.active {
+  display: block;
+}
+
+/* QUIZ visible */
+.quiz {
+  display: block;
+  background: var(--card);
+  padding: 22px;
+  border-radius: var(--radius);
+  margin-top: 18px;
+  box-shadow: var(--shadow);
+}
+
+/* ── ANIMACIÓN ───────────────────── */
 @keyframes fade {
-  from {opacity: 0; transform: translateY(10px);}
+  from {opacity: 0; transform: translateY(8px);}
   to {opacity: 1; transform: translateY(0);}
 }
 
-/* ── SUBMENÚ UNIDADES ──────────────── */
+/* ── UNIDADES ───────────────────── */
 .unit-nav {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 15px;
+  gap: 10px;
 }
 
 .unit {
-  padding: 8px 14px;
+  padding: 10px 16px;
   border: none;
   background: var(--secondary);
   color: white;
-  border-radius: var(--radius);
+  border-radius: 999px;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -113,34 +142,45 @@ header h1 {
   opacity: 0.85;
 }
 
-/* ── BOTONES TEMAS ─────────────────── */
+.unit.active {
+  background: var(--primary);
+}
+
+/* ── EJERCICIOS (BOTONES) ───────── */
 .topics-nav {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 12px;
 }
 
 .topic-btn {
-  padding: 10px;
+  padding: 10px 15px;
+  border-radius: 999px;
   border: none;
-  border-radius: var(--radius);
-  background: #ecf2f8;
+  background: #e2e8f0;
   cursor: pointer;
   transition: 0.3s;
 }
 
+/* hover */
 .topic-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* activo */
+.topic-btn.active {
   background: var(--primary);
   color: white;
 }
 
-/* ── FORMULARIOS ───────────────────── */
+/* ── FORMULARIOS ───────────────── */
 .fields {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 10px;
-  margin: 15px 0;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
 }
 
 .field label {
@@ -151,13 +191,13 @@ header h1 {
 .field input,
 .field select {
   width: 100%;
-  padding: 8px;
+  padding: 9px;
   border-radius: var(--radius);
-  border: 1px solid #ddd;
-  margin-top: 4px;
+  border: 1px solid #d1d5db;
+  margin-top: 5px;
 }
 
-/* ── BOTÓN CALCULAR ───────────────── */
+/* ── BOTÓN CALCULAR ───────────── */
 .calc-btn {
   width: 100%;
   padding: 12px;
@@ -165,35 +205,47 @@ header h1 {
   color: white;
   border: none;
   border-radius: var(--radius);
-  margin-top: 10px;
+  margin-top: 12px;
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
 }
 
 .calc-btn:hover {
-  background: #357abd;
+  background: var(--accent);
 }
 
-/* ── RESULTADOS ───────────────────── */
+/* ── RESULTADOS ───────────────── */
 .result-box {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
   margin-top: 15px;
-  padding: 15px;
+  padding: 16px;
   border-radius: var(--radius);
-  background: #f0f5fc;
+  background: #f1f5f9;
+  transition: 0.4s;
 }
 
+.result-box.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* valores */
 .result-main {
-  font-size: 24px;
+  font-size: 26px;
   color: var(--primary);
   font-weight: bold;
 }
 
+/* cards */
 .result-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .result-card {
@@ -205,17 +257,17 @@ header h1 {
   box-shadow: var(--shadow);
 }
 
-.result-card .val {
-  font-weight: bold;
-}
-
 .result-card .green {
   color: var(--secondary);
 }
 
-/* ── QUIZ ─────────────────────────── */
+/* ── QUIZ ───────────────────── */
 .question {
-  margin: 15px 0;
+  margin: 18px 0;
+}
+
+.question p {
+  font-weight: 500;
 }
 
 .submit-btn {
@@ -227,6 +279,7 @@ header h1 {
   border-radius: var(--radius);
   cursor: pointer;
   font-weight: bold;
+  margin-top: 10px;
 }
 
 .submit-btn:hover {
@@ -236,19 +289,20 @@ header h1 {
 #resultado-quiz {
   margin-top: 15px;
   padding: 15px;
-  background: #eaf7f1;
+  background: #ecfdf5;
   border-radius: var(--radius);
   text-align: center;
 }
 
-/* ── RESPONSIVE ───────────────────── */
+/* ── RESPONSIVE ───────────────── */
 @media (max-width: 768px) {
   header h1 {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .nav-btn {
-    flex: 1 1 100%;
+    width: 100%;
+    text-align: center;
   }
 
   .fields {

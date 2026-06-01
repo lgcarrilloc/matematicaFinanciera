@@ -123,7 +123,7 @@
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio7')"><span class="number">T7 </span>Amortización Alemana</button>
   </div>
   <!--VALOR PRESENTE-->
-  <div class="calc-panel active" id="p1">
+  <div class="calc-panel" id="p1">
     <div>Valor Presente</div>
     <div class="fields">
         <div class="field"><label>Valor Futuro (VF)</label><input type="number" id="vp_vf" value="10000"/></div>
@@ -173,6 +173,7 @@
           <div class="result-card"><div class="val green" id="r3_desc"></div><div class="lbl">Descuento %</div></div>
         </div>
     </div>
+  </div>
   <!-- CUOTAS Y PAGOS -->
   <div class="calc-panel" id="p5">
     <div>Cuotas y Pagos Periódicos</div>
@@ -198,6 +199,7 @@
           <div class="result-card"><div class="val green" id="r5_interes"></div><div class="lbl">Interés Total</div></div>
         </div>
     </div>
+  </div>
   <!-- TEMA 7: AMORTIZACIÓN ALEMANA -->
   <div class="calc-panel" id="p7">
     <div>Amortización Alemana</div>
@@ -223,13 +225,13 @@
           <div class="result-card"><div class="val green" id="r7_interes"></div><div class="lbl">Interés Total</div></div>
         </div>
     </div>
-  
+  </div>
   </section>
 <!--SECCIÓN: CUESTIONARIO -->
 <section id="cuestionario" class="content-section">
   <h2>Cuestionario de Evaluación</h2>
   <p>Responde el siguiente cuestionario para evaluar tus conocimientos en matemática financiera.</p>
-  <div class="quiz">
+  <div class="quiz active">
     <div class="question">
       <p><strong>1. ¿Qué representa el Valor Presente?</strong></p>
       <label><input type="radio" name="q1" value="a"> El valor futuro de una cantidad de dinero.</label><br>
