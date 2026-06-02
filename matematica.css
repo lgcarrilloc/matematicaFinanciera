@@ -22,8 +22,7 @@
 
 /* ---------- BODY ---------- */
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: #63f18e,
   line-height: 1.6;
 }
 
@@ -36,7 +35,7 @@ header {
 }
 
 header h1 {
-  font-size: 28px;
+  font-size: 40px;
   font-weight: 600;
 }
 
@@ -53,10 +52,11 @@ header h1 {
   padding: 10px 18px;
   border-radius: 999px;
   border: none;
-  background: var(--card);
-  color: var(--text);
+  background: #75b9acc4;
+  color: #020617;
   cursor: pointer;
   transition: 0.3s;
+  font-size: 25px;
 }
 
 .nav-btn:hover {
