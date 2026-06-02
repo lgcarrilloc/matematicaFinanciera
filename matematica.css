@@ -1,4 +1,4 @@
-/* ── RESET ───────────────────────────── */
+/* ---------- RESET ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -6,181 +6,154 @@
   font-family: "Segoe UI", Roboto, sans-serif;
 }
 
-/* ── COLORES PROFESIONALES ───────────── */
+/* ---------- VARIABLES ---------- */
 :root {
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --primary: #1e3a8a;     /* azul oscuro elegante */
-  --secondary: #059669;   /* verde financiero */
-  --accent: #3b82f6;      /* azul brillante */
-  --text: #1f2937;
-  --muted: #6b7280;
-  --shadow: 0 6px 18px rgba(0,0,0,0.08);
+  --bg: #0f172a;         /* fondo oscuro suave */
+  --card: #1e293b;       /* tarjetas */
+  --primary: #3b82f6;    /* azul moderno */
+  --secondary: #22c55e;  /* verde financiero */
+  --accent: #6366f1;     /* hover */
+  --text: #e5e7eb;       /* texto claro */
+  --muted: #94a3b8;      /* gris suave */
+  --border: #334155;
+  --shadow: 0 10px 30px rgba(0,0,0,0.4);
   --radius: 14px;
 }
 
-/* ── BODY ───────────────────────────── */
+/* ---------- BODY ---------- */
 body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
 }
 
-/* ── HEADER ─────────────────────────── */
+/* ---------- HEADER ---------- */
 header {
   text-align: center;
   padding: 25px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
   color: white;
-  box-shadow: var(--shadow);
 }
 
 header h1 {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 600;
 }
 
-/* ── NAV PRINCIPAL ─────────────────── */
+/* ---------- NAV ---------- */
 .main-nav {
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 12px;
   padding: 15px;
   flex-wrap: wrap;
 }
 
-/* BOTONES PRINCIPALES */
 .nav-btn {
-  background: var(--card);
-  border: none;
-  padding: 12px 20px;
+  padding: 10px 18px;
   border-radius: 999px;
+  border: none;
+  background: var(--card);
+  color: var(--text);
   cursor: pointer;
-  box-shadow: var(--shadow);
   transition: 0.3s;
-  font-weight: 500;
 }
 
-/* HOVER */
 .nav-btn:hover {
   background: var(--accent);
   color: white;
-  transform: translateY(-3px);
 }
 
-/* ACTIVO */
 .nav-btn.active {
   background: var(--primary);
-  color: white;
 }
 
-/* ── SECCIONES ─────────────────────── */
+/* ---------- SECCIONES ---------- */
 .content-section,
 .main-section {
   display: none;
-  padding: 25px;
+  padding: 30px;
 }
 
-/* ACTIVAR */
 .active {
   display: block !important;
 }
 
-/* ── TARJETAS ─────────────────────── */
+/* ---------- TITULOS ---------- */
+.section-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.section-header h2 {
+  font-size: 26px;
+  color: white;
+}
+
+.section-header p {
+  color: var(--muted);
+}
+
+/* ---------- TARJETAS ---------- */
+.calc-panel,
 .unit-panel,
-.calc-panel {
+.quiz {
   display: none;
   background: var(--card);
-  padding: 22px;
+  padding: 25px;
   border-radius: var(--radius);
-  margin-top: 18px;
   box-shadow: var(--shadow);
-  animation: fade 0.35s ease;
+  margin-top: 20px;
 }
 
+.calc-panel.active,
 .unit-panel.active,
-.calc-panel.active {
-  display: block;
-}
-
-/* QUIZ visible */
 .quiz {
   display: block;
-  background: var(--card);
-  padding: 22px;
-  border-radius: var(--radius);
-  margin-top: 18px;
-  box-shadow: var(--shadow);
 }
 
-/* ── ANIMACIÓN ───────────────────── */
-@keyframes fade {
-  from {opacity: 0; transform: translateY(8px);}
-  to {opacity: 1; transform: translateY(0);}
+/* ---------- TITULO PANEL ---------- */
+.calc-panel > div:first-child {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
-/* ── UNIDADES ───────────────────── */
-.unit-nav {
+/* ---------- BOTONES UNIDADES ---------- */
+.unit-nav, .topics-nav {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.unit {
-  padding: 10px 16px;
+.unit, .topic-btn {
+  padding: 8px 14px;
+  border-radius: 12px;
   border: none;
-  background: var(--secondary);
-  color: white;
-  border-radius: 999px;
+  background: #334155;
+  color: var(--text);
   cursor: pointer;
   transition: 0.3s;
 }
 
-.unit:hover {
-  opacity: 0.85;
-}
-
-.unit.active {
-  background: var(--primary);
-}
-
-/* ── EJERCICIOS (BOTONES) ───────── */
-.topics-nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.topic-btn {
-  padding: 10px 15px;
-  border-radius: 999px;
-  border: none;
-  background: #e2e8f0;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-/* hover */
-.topic-btn:hover {
+.unit:hover, .topic-btn:hover {
   background: var(--accent);
   color: white;
 }
 
-/* activo */
-.topic-btn.active {
+.unit.active, .topic-btn.active {
   background: var(--primary);
   color: white;
 }
 
-/* ── FORMULARIOS ───────────────── */
+/* ---------- FORMULARIOS ---------- */
 .fields {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
-  margin: 18px 0;
+  margin: 15px 0;
 }
 
 .field label {
@@ -188,121 +161,148 @@ header h1 {
   color: var(--muted);
 }
 
-.field input,
-.field select {
+input, select {
   width: 100%;
-  padding: 9px;
+  padding: 10px;
   border-radius: var(--radius);
-  border: 1px solid #d1d5db;
-  margin-top: 5px;
+  border: 1px solid var(--border);
+  background: #0f172a;
+  color: var(--text);
 }
 
-/* ── BOTÓN CALCULAR ───────────── */
+/* ---------- BOTÓN CALCULAR ---------- */
 .calc-btn {
   width: 100%;
   padding: 12px;
-  background: var(--primary);
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
   color: white;
   border: none;
   border-radius: var(--radius);
-  margin-top: 12px;
   cursor: pointer;
-  font-weight: bold;
+  margin-top: 15px;
   transition: 0.3s;
 }
 
 .calc-btn:hover {
-  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* ── RESULTADOS ───────────────── */
+/* ---------- RESULTADOS ---------- */
 .result-box {
   display: none;
-  opacity: 0;
-  transform: translateY(10px);
-  margin-top: 15px;
-  padding: 16px;
+  margin-top: 20px;
+  padding: 20px;
   border-radius: var(--radius);
-  background: #f1f5f9;
-  transition: 0.4s;
+  background: linear-gradient(180deg, #1e293b, #0f172a);
 }
 
 .result-box.show {
   display: block;
-  opacity: 1;
-  transform: translateY(0);
 }
 
-/* valores */
+.result-label {
+  text-align: center;
+  color: var(--muted);
+}
+
 .result-main {
-  font-size: 26px;
-  color: var(--primary);
+  text-align: center;
+  font-size: 28px;
   font-weight: bold;
+  color: var(--primary);
 }
 
-/* cards */
+/* ---------- TARJETAS RESULTADOS ---------- */
 .result-grid {
   display: flex;
+  gap: 12px;
+  margin-top: 15px;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 12px;
 }
 
 .result-card {
   flex: 1;
-  background: white;
-  padding: 10px;
+  background: #0206171b;
+  padding: 15px;
   border-radius: var(--radius);
   text-align: center;
-  box-shadow: var(--shadow);
 }
 
-.result-card .green {
+.green {
   color: var(--secondary);
 }
 
-/* ── QUIZ ───────────────────── */
-.question {
-  margin: 18px 0;
+/* ---------- TABLAS ---------- */
+#r6_tabla, #r7_tabla {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
 }
 
-.question p {
-  font-weight: 500;
+table {
+  width: 95%;
+  max-width: 1100px;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: #020617;
+}
+
+th {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  color: white;
+  padding: 12px;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #1e293b;
+}
+
+tr:nth-child(even) {
+  background: #020617;
+}
+
+tr:nth-child(odd) {
+  background: #020617cc;
+}
+
+tr:hover {
+  background: #1e3a8a70;
+  transition: 0.2s;
+}
+
+/* ---------- QUIZ ---------- */
+.question {
+  margin: 15px 0;
 }
 
 .submit-btn {
+  width: 100%;
+  padding: 12px;
   background: var(--secondary);
   color: white;
   border: none;
-  padding: 12px;
-  width: 100%;
   border-radius: var(--radius);
-  cursor: pointer;
-  font-weight: bold;
   margin-top: 10px;
-}
-
-.submit-btn:hover {
-  opacity: 0.9;
 }
 
 #resultado-quiz {
   margin-top: 15px;
-  padding: 15px;
-  background: #ecfdf5;
+  padding: 10px;
   border-radius: var(--radius);
-  text-align: center;
+  background: #022c22;
 }
 
-/* ── RESPONSIVE ───────────────── */
+/* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
-  header h1 {
-    font-size: 24px;
-  }
 
   .nav-btn {
     width: 100%;
-    text-align: center;
   }
 
   .fields {
@@ -311,5 +311,17 @@ header h1 {
 
   .result-grid {
     flex-direction: column;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  #r6_tabla, #r7_tabla {
+    justify-content: flex-start;
   }
 }

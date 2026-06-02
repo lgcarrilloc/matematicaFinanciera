@@ -95,8 +95,11 @@ function mostrarEjercicio(id){
     .forEach(b => b.classList.remove("active"));
     const mapa = {
         ejercicio1: "p1",
+        ejercicio2: "p2",
         ejercicio3: "p3",
+        ejercicio4: "p4",
         ejercicio5: "p5",
+        ejercicio6: "p6",
         ejercicio7: "p7"
     };
     const panel = mapa[id];
@@ -136,6 +139,27 @@ function calcVP(){
     mostrarTexto("r1_interes", fmt(interes));
     mostrarTexto("r1_desc", fmtP(desc));
 }
+// Valor Futuro
+function calcVF(){
+    let vp = recuperarFloat("vf_vp");
+    let r  = recuperarFloat("vf_r") / 100;
+    let n  = recuperarFloat("vf_n");
+    let tipo = recuperaraTexto("vf_tipo");
+    if(isNaN(vp) || isNaN(r) || isNaN(n)){
+        alert("Ingrese datos válidos");
+        return;
+    }   
+    let i = r;
+    if(tipo === "mensual") i = r/12;
+    if(tipo === "trimestral") i = r/4;
+    let vf = vp * Math.pow(1 + i, n);
+    let interes = vf - vp;
+    let inc = (interes / vp) * 100;
+    document.getElementById("r2").classList.add("show");
+    mostrarTexto("r2_vf", fmt(vf));
+    mostrarTexto("r2_interes", fmt(interes));
+    mostrarTexto("r2_inc", fmtP(inc));
+}
 
 // Interés Simple
 function calcIS(){
@@ -153,6 +177,27 @@ function calcIS(){
     mostrarTexto("r3_total", fmt(M));
     mostrarTexto("r3_desc", fmtP((I/C)*100));
 }
+
+// Interés Compuesto
+function calcIC(){
+    let C = recuperarFloat("ic_c");
+    let r = recuperarFloat("ic_r") / 100;
+    let n = recuperarFloat("ic_n");
+    let tipo = recuperaraTexto("ic_tipo");
+    if(isNaN(C) || isNaN(r) || isNaN(n)){
+        alert("Ingrese datos válidos");
+        return;
+    }
+    let i = r;
+    if(tipo === "mensual") i = r/12;
+    if(tipo === "trimestral") i = r/4;
+    let M = C * Math.pow(1 + i, n);
+    let I = M - C;
+    document.getElementById("r4").classList.add("show");
+    mostrarTexto("r4_interes", fmt(I));
+    mostrarTexto("r4_total", fmt(M));
+    mostrarTexto("r4_desc", fmtP((I/C)*100));
+}   
 
 // Cuotas y Pagos
 function calcCP(){
@@ -176,6 +221,57 @@ function calcCP(){
     mostrarTexto("r5_interes", fmt(interes));
 }
 
+// Amortización Francesa
+function calcAF(){
+    let C = recuperarFloat("af_p");
+    let r = recuperarFloat("af_r") / 100;
+    let n = recuperarFloat("af_n");
+    let tipo = recuperaraTexto("af_tipo");
+    if(isNaN(C) || isNaN(r) || isNaN(n)){
+        alert("Ingrese datos válidos");
+        return;
+    }
+    let i = r;
+    if(tipo === "mensual") i = r/12;
+    if(tipo === "trimestral") i = r/4;
+    let cuota = C * (i / (1 - Math.pow(1+i, -n)));
+    let saldo = C;
+    let total = cuota * n;
+    let interesTotal = total - C;
+    document.getElementById("r6").classList.add("show");
+    mostrarTexto("r6_cuota", fmt(cuota));
+    mostrarTexto("r6_total", fmt(total));
+    mostrarTexto("r6_interes", fmt(interesTotal));
+    let tabla = `
+    <table border="1">
+        <tr>
+            <th>Periodo</th>
+            <th>Saldo Inicial</th>
+            <th>Interés</th>
+            <th>Amortización</th>
+            <th>Cuota</th>
+            <th>Saldo Final</th>
+        </tr>
+    `;
+    for(let k = 1; k <= n; k++){
+        let interes = saldo * i;
+        let amort = cuota - interes;
+        let saldoFinal = saldo - amort;
+        tabla += `
+        <tr>
+            <td>${k}</td>
+            <td>${fmt(saldo)}</td>
+            <td>${fmt(interes)}</td>
+            <td>${fmt(amort)}</td>
+            <td>${fmt(cuota)}</td>
+            <td>${fmt(saldoFinal)}</td>
+        </tr>
+        `;
+        saldo = saldoFinal;
+    }
+    tabla += "</table>";
+    document.getElementById("r6_tabla").innerHTML = tabla;
+}
 
 // Amortización Alemana
 function calcAA(){
@@ -195,19 +291,44 @@ function calcAA(){
     let total = 0;
     let interesTotal = 0;
     let cuota1 = 0;
-    for(let k=1; k<=n; k++){
+    let tabla = `
+    <table border="1">
+        <tr>
+            <th>Periodo</th>
+            <th>Saldo Inicial</th>
+            <th>Interés</th>
+            <th>Amortización</th>
+            <th>Cuota</th>
+            <th>Saldo Final</th>
+        </tr>
+    `;
+    for(let k = 1; k <= n; k++){
         let interes = saldo * i;
         let cuota = amort + interes;
+        let saldoFinal = saldo - amort;
         if(k === 1) cuota1 = cuota;
-        saldo -= amort;
         total += cuota;
         interesTotal += interes;
+        tabla += `
+        <tr>
+            <td>${k}</td>
+            <td>${fmt(saldo)}</td>
+            <td>${fmt(interes)}</td>
+            <td>${fmt(amort)}</td>
+            <td>${fmt(cuota)}</td>
+            <td>${fmt(saldoFinal)}</td>
+        </tr>
+        `;
+        saldo = saldoFinal;
     }
+    tabla += "</table>";
     document.getElementById("r7").classList.add("show");
     mostrarTexto("r7_cuota", fmt(cuota1));
     mostrarTexto("r7_total", fmt(total));
     mostrarTexto("r7_interes", fmt(interesTotal));
+    document.getElementById("r7_tabla").innerHTML = tabla;
 }
+``
 
 
 // Cuestionario

@@ -49,6 +49,27 @@
   </ul>
   <p>
 </div>
+<!--VALOR FUTURO-->
+<div class="unit-panel" id="unidad2">
+  <h2>Valor Futuro</h2>
+  <p>El Valor Futuro (VF) es el valor que tendrá una cantidad de dinero en el futuro, después de acumular intereses a una tasa determinada. Responde la pregunta: ¿cuánto valdrá en el futuro un dinero que tengo hoy?</p>
+  <p>El Valor Futuro representa el monto acumulado que se obtendrá al invertir una cantidad de dinero durante un período de tiempo a una tasa de interés específica.</p>
+  <p>Fórmula: VF = VP * (1 + i)^n</p>
+  <p>Donde:</p>
+  <ul>
+    <li>VF: Valor Futuro</li>
+    <li>VP: Valor Presente</li>
+    <li>i: tasa de interés por período</li>
+    <li>n: número de períodos</li>
+  </ul>
+  <h3>Aplicaciones</h3>
+  <ul>
+    <li>Proyección de ahorros</li>
+    <li>Cálculo de montos futuros en inversiones</li>
+    <li>Planificación financiera personal</li>
+    <li>Evaluación de proyectos a largo plazo</li>
+  </ul>
+</div>
 <!--INTERÉS SIMPLE-->
 <div class="unit-panel" id="unidad3">
   <h2>Interés Simple</h2>
@@ -68,6 +89,26 @@
     <li>Inversiones simples</li>
   </ul>
 </div>
+<!--INTERÉS COMPUESTO-->
+<div class="unit-panel" id="unidad4">
+  <h2>Interés Compuesto</h2>
+  <p>El Interés Compuesto es un método de cálculo de intereses donde el interés se calcula sobre el capital inicial y también sobre los intereses acumulados en períodos anteriores. Esto hace que el monto crezca de manera exponencial.</p>
+  <p>Fórmula: VF = VP * (1 + i)^n</p>
+  <p>Donde:</p>
+  <ul>
+    <li>VF: Valor Futuro</li>
+    <li>VP: Valor Presente</li>
+    <li>i: tasa de interés por período</li>
+    <li>n: número de períodos</li>
+  </ul>
+  <h3>Aplicaciones</h3>
+  <ul>
+    <li>Ahorros a largo plazo</li>
+    <li>Inversiones en bolsa</li>
+    <li>Préstamos a largo plazo</li>
+    <li>Evaluación de proyectos con reinversión de ganancias</li>
+  </ul> 
+</div>
 <!--CUOTAS Y PAGOS PERIÓDICOS-->
 <div class="unit-panel" id="unidad5">
   <h2>Cuotas y Pagos Periódicos</h2>
@@ -86,6 +127,25 @@
     <li>Préstamos personales</li>
     <li>Planes de ahorro</li>
   </ul>
+</div>
+<!--AMORTIZACIÓN FRANCESA-->
+<div class="unit-panel" id="unidad6">
+  <h2>Amortización Francesa</h2>
+  <p>La Amortización Francesa es un método de amortización donde las cuotas periódicas son iguales durante todo el período, pero la proporción de capital e interés varía. Al inicio, se paga más interés y menos capital, y con el tiempo se invierte esta proporción.</p>
+  <p>Fórmula para la cuota: A = P * [i / (1 - (1 + i)^-n)]</p>
+  <p>Donde:</p>
+  <ul>
+    <li>A: Cuota periódica</li>
+    <li>P: Monto del préstamo</li>
+    <li>i: tasa de interés por período</li>
+    <li>n: número de períodos</li>
+  </ul>
+  <h3>Aplicaciones</h3>
+  <ul>
+    <li>Préstamos hipotecarios</li>
+    <li>Préstamos a largo plazo</li>
+    <li>Financiamiento de proyectos con pagos fijos</li>
+  </ul> 
 </div>
 <!--AMORTIZACIÓN ALEMANA-->
 <div class="unit-panel" id="unidad7">
@@ -148,7 +208,33 @@
         </div>
     </div>
   </div>
-  <!--Interes Simple-->
+<!--valor futuro-->
+  <div class="calc-panel" id="p2">
+    <div>Valor Futuro</div>
+    <div class="fields">
+        <div class="field"><label>Valor Presente (VP)</label><input type="number" id="vf_vp" value="5000"/></div>
+        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="vf_r" value="10" step="0.01"/></div>
+        <div class="field"><label>Períodos (n)</label><input type="number" id="vf_n" value="3"/></div>
+        <div class="field"><label>Tipo</label>
+          <select id="vf_tipo">
+            <option value="anual">Anual</option>
+            <option value="mensual">Mensual</option>
+            <option value="trimestral">Trimestral</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcVF()">Calcular VF →</button>
+      <div class="result-box" id="r2">
+        <div class="result-label">Valor Futuro</div>
+        <div class="result-main" id="r2_vf"></div>
+        <div class="formula-box"><strong>VF = VP * (1 + i)ⁿ</strong><br/><span id="r2_formula"></span></div>
+        <div class="result-grid">
+          <div class="result-card"><div class="val" id="r2_interes"></div><div class="lbl">Interés total</div></div>
+          <div class="result-card"><div class="val green" id="r2_desc"></div><div class="lbl">Incremento %</div></div>
+        </div>  
+    </div>
+  </div>
+<!--Interes Simple-->
   <div class="calc-panel" id="p3">
     <div>Interés Simple</div>
     <div class="fields">
@@ -172,6 +258,32 @@
           <div class="result-card"><div class="val" id="r3_total"></div><div class="lbl">Monto Total</div></div>
           <div class="result-card"><div class="val green" id="r3_desc"></div><div class="lbl">Descuento %</div></div>
         </div>
+    </div>
+  </div>
+  <!--Interes compuesto-->
+  <div class="calc-panel" id="p4">
+    <div>Interés Compuesto</div>
+    <div class="fields">
+        <div class="field"><label>Capital Inicial (C)</label><input type="number" id="ic_c" value="5000"/></div>
+        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="ic_r" value="10" step="0.01"/></div>
+        <div class="field"><label>Períodos (n)</label><input type="number" id="ic_n" value="3"/></div>
+        <div class="field"><label>Tipo</label>
+          <select id="ic_tipo">
+            <option value="anual">Anual</option>
+            <option value="mensual">Mensual</option>
+            <option value="trimestral">Trimestral</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcIC()">Calcular VF →</button>
+      <div class="result-box" id="r4">
+        <div class="result-label">Valor Futuro</div>
+        <div class="result-main" id="r4_vf"></div>
+        <div class="formula-box"><strong>VF = VP * (1 + i)ⁿ</strong><br/><span id="r4_formula"></span></div>
+        <div class="result-grid">
+          <div class="result-card"><div class="val" id="r4_interes"></div><div class="lbl">Interés total</div></div>
+          <div class="result-card"><div class="val green" id="r4_desc"></div><div class="lbl">Incremento %</div></div>
+        </div>  
     </div>
   </div>
   <!-- CUOTAS Y PAGOS -->
@@ -200,7 +312,34 @@
         </div>
     </div>
   </div>
-  <!-- TEMA 7: AMORTIZACIÓN ALEMANA -->
+  <!--AMORTIZACIÓN francesa -->
+  <div class="calc-panel" id="p6">
+    <div>Amortización Francesa</div>
+    <div class="fields">
+        <div class="field"><label>Capital Inicial (P)</label><input type="number" id="af_p" value="20000"/></div>
+        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="af_r" value="12" step="0.01"/></div>
+        <div class="field"><label>Períodos (n)</label><input type="number" id="af_n" value="24"/></div>
+        <div class="field"><label>Tipo</label>
+          <select id="af_tipo">
+            <option value="anual">Anual</option>
+            <option value="mensual">Mensual</option>
+            <option value="trimestral">Trimestral</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcAF()">Calcular Cuota →</button>
+      <div class="result-box" id="r6">
+        <div class="result-label">Cuota Periódica</div>
+        <div class="result-main" id="r6_cuota"></div>
+        <div class="formula-box"><strong>A = P * [i / (1 - (1 + i)⁻ⁿ)]</strong><br/><span id="r6_formula"></span></div>
+        <div class="result-grid">
+          <div class="result-card"><div class="val" id="r6_total"></div><div class="lbl">Pago Total</div></div>
+          <div class="result-card"><div class="val green" id="r6_interes"></div><div class="lbl">Interés Total</div></div>
+        </div>
+        <div id="r6_tabla"></div>
+    </div>
+  </div>
+  <!--AMORTIZACIÓN ALEMANA -->
   <div class="calc-panel" id="p7">
     <div>Amortización Alemana</div>
     <div class="fields">
@@ -225,6 +364,7 @@
           <div class="result-card"><div class="val green" id="r7_interes"></div><div class="lbl">Interés Total</div></div>
         </div>
     </div>
+    <div id="r7_tabla"></div>
   </div>
   </section>
 <!--SECCIÓN: CUESTIONARIO -->
