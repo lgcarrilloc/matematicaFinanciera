@@ -24,6 +24,10 @@ function limpiarResultados(){
     .forEach(r => r.classList.remove("show"));
 }
 
+function limpiarCampos(){
+    document.querySelectorAll("input")
+    .forEach(c => c.value = "");
+}
 
 //inicio de la aplicación
 window.onload = function(){
@@ -88,11 +92,22 @@ function mostrarUnidad(id){
 
 
 // Ejercicios
+
+function convertirTasa(r, tipo){
+    switch(tipo){
+        case "mensual": return r / 12;
+        case "trimestral": return r / 4;
+        case "semestral": return r / 2;
+        default: return r; // anual
+    }
+}
+
 function mostrarEjercicio(id){
     document.querySelectorAll(".calc-panel")
     .forEach(p => p.classList.remove("active"));
     document.querySelectorAll(".topic-btn")
     .forEach(b => b.classList.remove("active"));
+    limpiarCampos();
     const mapa = {
         ejercicio1: "p1",
         ejercicio2: "p2",
@@ -118,7 +133,6 @@ function mostrarEjercicio(id){
 
 
 // Valor Presente
-
 function calcVP(){
     let vf = recuperarFloat("vp_vf");
     let r  = recuperarFloat("vp_r") / 100;
@@ -128,9 +142,7 @@ function calcVP(){
         alert("Ingrese datos válidos");
         return;
     }
-    let i = r;
-    if(tipo === "mensual") i = r/12;
-    if(tipo === "trimestral") i = r/4;
+    let i = convertirTasa(r, tipo);
     let vp = vf / Math.pow(1 + i, n);
     let interes = vf - vp;
     let desc = (interes / vf) * 100;
@@ -139,6 +151,7 @@ function calcVP(){
     mostrarTexto("r1_interes", fmt(interes));
     mostrarTexto("r1_desc", fmtP(desc));
 }
+
 // Valor Futuro
 function calcVF(){
     let vp = recuperarFloat("vf_vp");
@@ -149,9 +162,7 @@ function calcVF(){
         alert("Ingrese datos válidos");
         return;
     }   
-    let i = r;
-    if(tipo === "mensual") i = r/12;
-    if(tipo === "trimestral") i = r/4;
+    let i = convertirTasa(r, tipo);
     let vf = vp * Math.pow(1 + i, n);
     let interes = vf - vp;
     let inc = (interes / vp) * 100;
@@ -166,11 +177,13 @@ function calcIS(){
     let C = recuperarFloat("is_c");
     let r = recuperarFloat("is_r") / 100;
     let n = recuperarFloat("is_n");
+    let tipo = recuperaraTexto("is_tipo");
     if(isNaN(C) || isNaN(r) || isNaN(n)){
         alert("Ingrese datos válidos");
         return;
     }
-    let I = C * r * n;
+    let i = convertirTasa(r, tipo); // ✅ convertir tasa
+    let I = C * i * n; // ✅ usar i, no r
     let M = C + I;
     document.getElementById("r3").classList.add("show");
     mostrarTexto("r3_interes", fmt(I));
@@ -188,16 +201,15 @@ function calcIC(){
         alert("Ingrese datos válidos");
         return;
     }
-    let i = r;
-    if(tipo === "mensual") i = r/12;
-    if(tipo === "trimestral") i = r/4;
+    let i = convertirTasa(r, tipo);
     let M = C * Math.pow(1 + i, n);
     let I = M - C;
     document.getElementById("r4").classList.add("show");
     mostrarTexto("r4_interes", fmt(I));
     mostrarTexto("r4_total", fmt(M));
     mostrarTexto("r4_desc", fmtP((I/C)*100));
-}   
+}
+
 
 // Cuotas y Pagos
 function calcCP(){
@@ -209,9 +221,7 @@ function calcCP(){
         alert("Ingrese datos válidos");
         return;
     }
-    let i = r;
-    if(tipo === "mensual") i = r/12;
-    if(tipo === "trimestral") i = r/4;
+    let i = convertirTasa(r, tipo);
     let cuota = P * (i / (1 - Math.pow(1+i, -n)));
     let total = cuota * n;
     let interes = total - P;
@@ -231,9 +241,7 @@ function calcAF(){
         alert("Ingrese datos válidos");
         return;
     }
-    let i = r;
-    if(tipo === "mensual") i = r/12;
-    if(tipo === "trimestral") i = r/4;
+    let i = convertirTasa(r, tipo);
     let cuota = C * (i / (1 - Math.pow(1+i, -n)));
     let saldo = C;
     let total = cuota * n;
@@ -283,9 +291,7 @@ function calcAA(){
         alert("Ingrese datos válidos");
         return;
     }
-    let i = r;
-    if(tipo === "mensual") i = r/12;
-    if(tipo === "trimestral") i = r/4;
+    let i = convertirTasa(r, tipo);
     let amort = C / n;
     let saldo = C;
     let total = 0;
@@ -328,8 +334,6 @@ function calcAA(){
     mostrarTexto("r7_interes", fmt(interesTotal));
     document.getElementById("r7_tabla").innerHTML = tabla;
 }
-``
-
 
 // Cuestionario
 function calcularPuntaje(){
