@@ -60,7 +60,7 @@ header h1 {
   border-radius: 10px;
   border: none;
   background: #90e693c4;
-  color: #020617;
+  color: #6f82db;
   cursor: pointer;
   transition: 0.3s;
   font-size: 20px;
@@ -178,7 +178,7 @@ header h1 {
   border-radius: 12px;
   border: none;
   background: #90e693c4;
-  color: #020617;
+  color: #0f32cd;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -214,7 +214,7 @@ select {
   padding: 10px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: #0f172a;
+  background: #1841a2;
   color: var(--text);
 }
 
@@ -233,7 +233,7 @@ select {
 
 .calc-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 20px rgba(202, 45, 45, 0.825);
 }
 
 /* ---------- RESULTADOS ---------- */
@@ -271,7 +271,7 @@ select {
 
 .result-card {
   flex: 1;
-  background: #0206171b;
+  background: #4fe1c2d6;
   padding: 15px;
   border-radius: var(--radius);
   text-align: center;
@@ -297,7 +297,7 @@ table {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  background: #020617;
+  background: #4c60bc;
 }
 
 th {
@@ -313,15 +313,15 @@ td {
 }
 
 tr:nth-child(even) {
-  background: #020617;
+  background: #4058c3;
 }
 
 tr:nth-child(odd) {
-  background: #020617cc;
+  background: #3854d1cc;
 }
 
 tr:hover {
-  background: #1e3a8a70;
+  background: #5c7edc70;
   transition: 0.2s;
 }
 
@@ -344,7 +344,7 @@ tr:hover {
   margin-top: 15px;
   padding: 10px;
   border-radius: var(--radius);
-  background: #022c22;
+  background: #207f69;
 }
 
 /* ---------- RESPONSIVE ---------- */
