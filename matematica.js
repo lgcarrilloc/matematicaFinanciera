@@ -242,34 +242,56 @@ function calcAF(){
     let r = recuperarFloat("af_r") / 100;
     let n = recuperarFloat("af_n");
     let tipo = recuperaraTexto("af_tipo");
+
     if(isNaN(C) || isNaN(r) || isNaN(n)){
         alert("Ingrese datos válidos");
         return;
     }
     let i = convertirTasa(r, tipo);
     let cuota = C * (i / (1 - Math.pow(1+i, -n)));
+
+    let i = r;
+    if(tipo === "mensual") i = r / 12;
+    if(tipo === "trimestral") i = r / 4;
+
+    let cuota = C * (i / (1 - Math.pow(1 + i, -n)));
     let saldo = C;
     let total = cuota * n;
     let interesTotal = total - C;
+
     document.getElementById("r6").classList.add("show");
     mostrarTexto("r6_cuota", fmt(cuota));
     mostrarTexto("r6_total", fmt(total));
     mostrarTexto("r6_interes", fmt(interesTotal));
+
+    // Variables para las sumatorias
+    let sumaInteres = 0;
+    let sumaCapital = 0;
+    let sumaCuota = 0;
+
     let tabla = `
     <table border="1">
         <tr>
             <th>Periodo</th>
             <th>Saldo Inicial</th>
             <th>Interés</th>
-            <th>Amortización</th>
+            <th>Capital</th>
             <th>Cuota</th>
             <th>Saldo Final</th>
         </tr>
     `;
+
     for(let k = 1; k <= n; k++){
+
         let interes = saldo * i;
         let amort = cuota - interes;
         let saldoFinal = saldo - amort;
+
+        // Acumular valores
+        sumaInteres += interes;
+        sumaCapital += amort;
+        sumaCuota += cuota;
+
         tabla += `
         <tr>
             <td>${k}</td>
@@ -280,12 +302,27 @@ function calcAF(){
             <td>${fmt(saldoFinal)}</td>
         </tr>
         `;
+
         saldo = saldoFinal;
     }
-    tabla += "</table>";
+
+    // Fila de totales
+    tabla += `
+    <tr style="font-weight:bold; background:#dff6dd;">
+        <td colspan="2">TOTAL</td>
+        <td>${fmt(sumaInteres)}</td>
+        <td>${fmt(sumaCapital)}</td>
+        <td>${fmt(sumaCuota)}</td>
+        <td>-</td>
+    </tr>
+    `;
+
+    tabla += `
+    </table>
+    `;
+
     document.getElementById("r6_tabla").innerHTML = tabla;
 }
-
 // Amortización Alemana
 function calcAA(){
     let C = recuperarFloat("aa_c");
@@ -308,7 +345,7 @@ function calcAA(){
             <th>Periodo</th>
             <th>Saldo Inicial</th>
             <th>Interés</th>
-            <th>Amortización</th>
+            <th>Capital</th>
             <th>Cuota</th>
             <th>Saldo Final</th>
         </tr>
