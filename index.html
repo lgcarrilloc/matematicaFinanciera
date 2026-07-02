@@ -8,7 +8,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 <header>
   <h1>Matemática Financiera</h1>
 </header>
@@ -50,7 +49,6 @@
     <li>Evaluación de bonos</li>
     <li>Descuento de letras de cambio</li>
   </ul>
-  <p>
 </div>
 <!--VALOR FUTURO-->
 <div class="unit-panel" id="unidad2">
@@ -110,7 +108,7 @@
     <li>Inversiones en bolsa</li>
     <li>Préstamos a largo plazo</li>
     <li>Evaluación de proyectos con reinversión de ganancias</li>
-  </ul> 
+  </ul>
 </div>
 <!--CUOTAS Y PAGOS PERIÓDICOS-->
 <div class="unit-panel" id="unidad5">
@@ -148,7 +146,7 @@
     <li>Préstamos hipotecarios</li>
     <li>Préstamos a largo plazo</li>
     <li>Financiamiento de proyectos con pagos fijos</li>
-  </ul> 
+  </ul>
 </div>
 <!--AMORTIZACIÓN ALEMANA-->
 <div class="unit-panel" id="unidad7">
@@ -179,7 +177,7 @@
 
   <div class="topics-nav">
     <button class="topic-btn" onclick="mostrarEjercicio('clientes')"><span class="number">👤 </span>Clientes</button>
-    <button class="topic-btn" onclick="mostrarEjercicio('ejercicio1')"><span class="number">T1 </span>ValorPresente</button>
+    <button class="topic-btn" onclick="mostrarEjercicio('ejercicio1')"><span class="number">T1 </span>Valor Presente</button>
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio2')"><span class="number">T2 </span>Valor Futuro</button>
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio3')"><span class="number">T3 </span>Interés Simple</button>
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio4')"><span class="number">T4 </span>Interés Compuesto</button>
@@ -188,652 +186,304 @@
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio7')"><span class="number">T7 </span>Amortización Alemana</button>
   </div>
 
-  <!-- REGISTRO DE CLIENTES (reutiliza la clase calc-panel del CSS existente) -->
-  <div class="calc-panel" id="clientePanel">
-    <h2>Registro de Cliente</h2>
+  <!--GESTIÓN DE CLIENTES-->
+  <div class="calc-panel active" id="clientePanel">
+    <div>Gestión de Clientes</div>
     <div class="fields">
-        <div class="field">
-            <label>Cédula</label>
-            <input type="text" id="cedula">
-        </div>
-        <div class="field">
-            <label>Nombre</label>
-            <input type="text" id="nombre">
-        </div>
-        <div class="field">
-            <label>Apellido</label>
-            <input type="text" id="apellido">
-        </div>
-        <div class="field">
-            <label>Ingresos</label>
-            <input type="number" id="ingresos">
-        </div>
-        <div class="field">
-            <label>Egresos</label>
-            <input type="number" id="egresos">
-        </div>
-        <div class="field">
-            <label>Teléfono</label>
-            <input type="text" id="telefono">
-        </div>
-        <div class="field">
-            <label>Correo</label>
-            <input type="email" id="correo">
-        </div>
+      <div class="field"><label>Cédula</label><input type="text" id="cedula" /></div>
+      <div class="field"><label>Nombre</label><input type="text" id="nombre" /></div>
+      <div class="field"><label>Apellido</label><input type="text" id="apellido" /></div>
+      <div class="field"><label>Ingresos mensuales</label><input type="number" id="ingresos" /></div>
+      <div class="field"><label>Egresos mensuales</label><input type="number" id="egresos" /></div>
+      <div class="field"><label>Teléfono</label><input type="text" id="telefono" /></div>
+      <div class="field"><label>Correo</label><input type="email" id="correo" /></div>
     </div>
-    <button class="calc-btn" onclick="guardarCliente()">
-        Guardar Cliente
-    </button>
-    <button class="calc-btn" onclick="limpiarCliente()">
-        Limpiar
-    </button>
-    <br><br>
-    <table>
+    <button class="calc-btn" onclick="guardarCliente()">Guardar Cliente →</button>
+
+    <div class="result-box" id="clienteActivoBox">
+      <div class="result-label">Cliente Activo (usado para Amortización Francesa / Alemana)</div>
+      <div class="result-main" id="clienteActivoNombre"></div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="val" id="clienteActivoCapacidad"></div>
+          <div class="lbl">Capacidad de Pago (Ingresos - Egresos)</div>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="quitarClienteActivo()">Quitar selección</button>
+    </div>
+
+    <p style="margin-top:20px; color:var(--muted); font-size:13px;">
+      Nota: para acceder a Amortización Francesa o Alemana, el cliente seleccionado debe tener
+      capacidad de pago positiva y la cuota calculada no puede superar el 40% de esa capacidad.
+    </p>
+
+    <div style="overflow-x:auto; margin-top:15px;">
+      <table>
         <thead>
-            <tr>
-                <th>Cédula</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Ingresos</th>
-                <th>Egresos</th>
-                <th>Teléfono</th>
-                <th>Correo</th>
-                <th>Acciones</th>
-            </tr>
+          <tr>
+            <th>Cédula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Ingresos</th>
+            <th>Egresos</th>
+            <th>Capacidad de Pago</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
         </thead>
-        <tbody id="tablaClientes">
-        </tbody>
-    </table>
+        <tbody id="tablaClientes"></tbody>
+      </table>
+    </div>
   </div>
+
   <!--VALOR PRESENTE-->
   <div class="calc-panel" id="p1">
     <div>Valor Presente</div>
     <div class="fields">
-        <div class="field"><label>Valor Futuro (VF)</label><input type="number" id="vp_vf" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="vp_r" step="0.01"/></div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="vp_n" /></div>
-=======
-  <header>
-    <h1>
-      <marquee>Matemática Financiera
-    </h1>
-    </marquee>
-    <link rel="stylesheet" href="matematica.css">
-  </header>
+      <div class="field"><label>Valor Futuro (VF)</label><input type="number" id="vp_vf" value="10000" /></div>
+      <div class="field"><label>Tasa de interés (%)</label><input type="number" id="vp_r" value="10" step="0.01" /></div>
+      <div class="field"><label>Períodos (n)</label><input type="number" id="vp_n" value="3" /></div>
+      <div class="field"><label>Tipo</label>
+        <select id="vp_tipo">
+          <option value="mensual">Mensual</option>
+          <option value="trimestral">Trimestral</option>
+          <option value="semestral">Semestral</option>
+          <option value="anual">Anual</option>
+        </select>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcVP()">Calcular VP →</button>
+    <div class="result-box" id="r1">
+      <div class="result-label">Valor Presente</div>
+      <div class="result-main" id="r1_vp"></div>
+      <div class="formula-box"><strong>VP = VF / (1 + i)ⁿ</strong></div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="val" id="r1_interes"></div>
+          <div class="lbl">Interés total</div>
+        </div>
+        <div class="result-card">
+          <div class="val green" id="r1_desc"></div>
+          <div class="lbl">Descuento %</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="main-nav">
-    <button class="nav-btn" onclick="mostrarSeccion('materia')"> 📖Concepto Básicos</button>
-    <button class="nav-btn" onclick="mostrarSeccion('ejercicios')">✏️ Ejercicios</button>
-    <button class="nav-btn" onclick="mostrarSeccion('cuestionario')"> 📝 Cuestionario</button>
-    <button class="nav-btn" onclick="mostrarSeccion('acerca')"> 🪪Acerca de</button></p>
-  </div>
-  <!--SECCIÓN: MATERIA-->
-  <section id="materia" class="content-section">
-    <!--subdivision de la seccion materia-->
-    <div class="unit-nav">
-      <button class="unit" onclick="mostrarUnidad('unidad1')">Valor Presente</button>
-      <button class="unit" onclick="mostrarUnidad('unidad2')">Valor Futuro</button>
-      <button class="unit" onclick="mostrarUnidad('unidad3')">Interés Simple</button>
-      <button class="unit" onclick="mostrarUnidad('unidad4')">Interés Compuesto</button>
-      <button class="unit" onclick="mostrarUnidad('unidad5')">Cuotas y Pagos</button>
-      <button class="unit" onclick="mostrarUnidad('unidad6')">Amortización Francesa</button>
-      <button class="unit" onclick="mostrarUnidad('unidad7')">Amortización Alemana</button>
-    </div>
-    <!--VALOR PRESENTE-->
-    <div class="unit-panel" id="unidad1">
-      <div class="tconcepto">
-        <span class="subtitulo">CONCEPTO</span>
-        <p>El Valor Presente (VP) es el valor actual de un monto futuro, descontado a una tasa de interés determinada.
-          <strong>Responde la pregunta: ¿cuánto vale hoy un dinero que recibiré en el futuro?</strong>
-          El Valor Presente representa el poder adquisitivo actual de una cantidad de dinero que se recibirá en el
-          futuro. El dinero pierde valor con el tiempo debido a la inflación y al costo de oportunidad.
-      </div>
-      <div class="tconcepto">
-        <span class="subtitulo">FÓRMULA</span>
-        <br><span class="formula">Fórmula:= VF / (1 + i)^n</span>
-        <p><strong>Donde:</strong></p>
-        <ul>
-          <li class="list">VP: Valor Presente</li>
-          <li>VF: Valor Futuro</li>
-          <li>i: tasa de interés por período</li>
-          <li>n: número de períodos</li>
-        </ul>
-      </div>
-      <div class="tconcepto"><span class="subtitulo">APLICACIONES</span>
-        <ul>
-          <li>Valoración de inversiones</li>
-          <li>Análisis de proyectos (VPN)</li>
-          <li>Evaluación de bonos</li>
-          <li>Descuento de letras de cambio</li>
-        </ul>
-        <p>
-      </div>
-    </div>
-    <!--VALOR FUTURO-->
-    <div class="unit-panel" id="unidad2">
-      <div class="tconcepto">
-        <span class="subtitulo">CONCEPTO</span>
-        <p>El Valor Futuro (VF) es el valor que tendrá una cantidad de dinero en el futuro, después de acumular
-          intereses
-          a una tasa determinada. <strong> Responde a la pregunta: ¿cuánto valdrá en el futuro un dinero que tengo
-            hoy?</strong>
-        <p>El Valor Futuro representa el monto acumulado que se obtendrá al invertir una cantidad de dinero durante un
-          período de tiempo a una tasa de interés específica.</p>
-      </div>
-      <div class="tconcepto">
-        <span class="subtitulo">FÓRMULA</span>
-        <br><span class="formula">Fórmula: VF = VP * (1 + i)^n</span></p>
-        <p>Donde:</p>
-        <ul>
-          <li>VF: Valor Futuro</li>
-          <li>VP: Valor Presente</li>
-          <li>i: tasa de interés por período</li>
-          <li>n: número de períodos</li>
-        </ul>
-      </div>
-      <div class="tconcepto"><span class="subtitulo">APLICACIONES</span>
-        <ul>
-          <li>Proyección de ahorros</li>
-          <li>Cálculo de montos futuros en inversiones</li>
-          <li>Planificación financiera personal</li>
-          <li>Evaluación de proyectos a largo plazo</li>
-        </ul>
-      </div>
-    </div>
-    <!--INTERÉS SIMPLE-->
-    <div class="unit-panel" id="unidad3">
-      <div class="tconcepto">
-        <span class="subtitulo">CONCEPTO</span>
-        <p>El Interés Simple es un método de cálculo de intereses donde el interés se calcula únicamente sobre el
-          capital
-          inicial durante todo el período. No se capitalizan los intereses.</p>
-      </div>
-      <div class="tconcepto">
-        <span class="subtitulo">FÓRMULA</span>
-        <p><span class="formula">Fórmula: I = C * i * n</span></p>
-        <p><strong>Donde:</strong></p>
-        <ul>
-          <li>I: Interés generado</li>
-          <li>C: Capital inicial</li>
-          <li>i: tasa de interés por período</li>
-          <li>n: número de períodos</li>
-      </div>
-      </ul>
-      <div class="tconcepto">
-        <h3>Aplicaciones</h3>
-        <ul>
-          <li>Préstamos a corto plazo</li>
-          <li>Descuento de documentos comerciales</li>
-          <li>Inversiones simples</li>
-        </ul>
-      </div>
-    </div>
-    </div>
-    <!--INTERÉS COMPUESTO-->
-    <div class="unit-panel" id="unidad4">
-      <div class="tconcepto">
-      <span class="subtitulo">CONCEPTO</span>
-      <p>El Interés Compuesto es un método de cálculo de intereses donde el interés se calcula sobre el capital inicial
-        y también sobre los intereses acumulados en períodos anteriores. Esto hace que el monto crezca de manera
-        exponencial.</p>
-      </div>
-      <div class="tconcepto">
-      <span class="subtitulo">FÓRMULA</span>
-      <br><span class="formula">Fórmula: VF = VP * (1 + i)^n</p></span>
-      <p>Donde:</p>
-      <ul>
-        <li>VF: Valor Futuro</li>
-        <li>VP: Valor Presente</li>
-        <li>i: tasa de interés por período</li>
-        <li>n: número de períodos</li>
-      </ul>
-      </div>
-      <div class="tconcepto">
-      <span class="subtitulo">Aplicaciones</span>
-      <ul>
-        <li>Ahorros a largo plazo</li>
-        <li>Inversiones en bolsa</li>
-        <li>Préstamos a largo plazo</li>
-        <li>Evaluación de proyectos con reinversión de ganancias</li>
-      </ul>
-      </div>
-    </div>
-    <!--CUOTAS Y PAGOS PERIÓDICOS-->
-    <div class="unit-panel" id="unidad5">
-      <div class="tconcepto">
-      <span class="subtitulo">CONCEPTO</span>
-      <p>Las Cuotas y Pagos Periódicos se refieren a los pagos regulares que se realizan para amortizar una deuda o para
-        acumular un capital. Pueden ser iguales (anualidades) o variables.</p>
-        </div>
-        <div class="tconcepto">
-      <span class="subtitulo">FÓRMULA</span>
-      <p><span class="formula">Fórmula para anualidades ordinarias: A = P * [i / (1 - (1 + i)^-n)]</span></p>
-      <p>Donde:</p>
-      <ul>
-        <li>A: Cuota periódica</li>
-        <li>P: Monto del préstamo o capital acumulado</li>
-        <li>i: tasa de interés por período</li>
-        <li>n: número de períodos</li>
-      </ul>
-      </div>
-        <div class="tconcepto">
-      <span class="subtitulo">Aplicaciones</span>
-      <ul>
-        <li>Préstamos hipotecarios</li>
-        <li>Préstamos personales</li>
-        <li>Planes de ahorro</li>
-      </ul>
-      </div>
-    </div>
-    <!--AMORTIZACIÓN FRANCESA-->
-    <div class="unit-panel" id="unidad6">
-      <div class="tconcepto">
-      <span class="subtitulo">CONCEPTO</span>
-      <p>La Amortización Francesa es un método de amortización donde las cuotas periódicas son iguales durante todo el
-        período, pero la proporción de capital e interés varía. Al inicio, se paga más interés y menos capital, y con el
-        tiempo se invierte esta proporción.</p>
-      </div>
-      <div class="tconcepto">
-      <span class="subtitulo">FÓRMULA</span>
-      <p><span class="formula">Fórmula para la cuota: A = P * [i / (1 - (1 + i)^-n)]</span></p>
-      <p>Donde:</p>
-      <ul>
-        <li>A: Cuota periódica</li>
-        <li>P: Monto del préstamo</li>
-        <li>i: tasa de interés por período</li>
-        <li>n: número de períodos</li>
-      </ul>
-      </div>
-      <div class="tconcepto">
-      <span class="subtitulo">Aplicaciones</span>
-      <ul>
-        <li>Préstamos hipotecarios</li>
-        <li>Préstamos a largo plazo</li>
-        <li>Financiamiento de proyectos con pagos fijos</li>
-      </ul>
-      </div>
-    </div>
-    <!--AMORTIZACIÓN ALEMANA-->
-    <div class="unit-panel" id="unidad7">
-      <div class="tconcepto">
-      <span class="subtitulo">CONCEPTO</span>
-      <p>La Amortización Alemana es un método de amortización donde el capital se amortiza en partes iguales durante
-        cada período, mientras que los intereses se calculan sobre el saldo de capital pendiente. Esto resulta en cuotas
-        decrecientes a lo largo del tiempo.</p>
-        </div>
-        <div class="tconcepto">
-        <span class="subtitulo">FÓRMULA</span>
-      <p><span class="formula">Fórmula para la cuota del período k: A_k = (C / n) + (C - (k - 1) * (C / n)) * i</span></p>
-      <p>Donde:</p>
-      <ul>
-        <li>A_k: Cuota del período k</li>
-        <li>C: Capital inicial</li>
-        <li>n: número total de períodos</li>
-        <li>i: tasa de interés por período</li>
-        <li>k: número del período actual (1, 2, ..., n)</li>
-      </ul>
-      </div>
-      <div class="tconcepto">
-      <span class="subtitulo">Aplicaciones</span>
-      <ul>
-        <li>Préstamos a largo plazo con cuotas decrecientes</li>
-        <li>Financiamiento de proyectos con flujo de caja variable</li>
-      </ul>
-      </div>
-    </div>
-  </section>
-  <!--EJERCICIOS-->
-  <section id="sec-ejercicios" class="main-section">
-    <div class="section-header">
-      <h2>Calculadora de Ejercicios</h2>
-      <p>Resuelve ejercicios prácticos de matemática financiera utilizando nuestra calculadora interactiva.</p>
-    </div>
-    <div class="topics-nav">
-      <button class="topic-btn" onclick="mostrarEjercicio('ejercicio1')"><span class="number">T1
-        </span>ValorPresente</button>
-      <button class="topic-btn" onclick="mostrarEjercicio('ejercicio2')"><span class="number">T2 </span>Valor
-        Futuro</button>
-      <button class="topic-btn" onclick="mostrarEjercicio('ejercicio3')"><span class="number">T3 </span>Interés
-        Simple</button>
-      <button class="topic-btn" onclick="mostrarEjercicio('ejercicio4')"><span class="number">T4 </span>Interés
-        Compuesto</button>
-      <button class="topic-btn" onclick="mostrarEjercicio('ejercicio5')"><span class="number">T5 </span>Cuotas
-        Periódicas</button>
-      <button class="topic-btn" onclick="mostrarEjercicio('ejercicio6')"><span class="number">T6 </span>Amortización
-        Francesa</button>
-      <button class="topic-btn" onclick="mostrarEjercicio('ejercicio7')"><span class="number">T7 </span>Amortización
-        Alemana</button>
-    </div>
-    <!--VALOR PRESENTE-->
-    <div class="calc-panel" id="p1">
-      <div>Valor Presente</div>
-      <div class="fields">
-        <div class="field"><label>Valor Futuro (VF)</label><input type="number" id="vp_vf" value="10000" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="vp_r" value="8" step="0.01" />
-        </div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="vp_n" value="5" /></div>
->>>>>>> dev/jessy
-        <div class="field"><label>Tipo</label>
-          <select id="vp_tipo">
-            <option value="mensual">Mensual</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="semestral">Semestral</option>
-            <option value="anual">Anual</option>
-          </select>
-        </div>
-      </div>
-      <button class="calc-btn" onclick="calcVP()">Calcular VP →</button>
-      <div class="result-box" id="r1">
-        <div class="result-label">Valor Presente</div>
-        <div class="result-main" id="r1_vp"></div>
-        <div class="formula-box"><strong>VP = VF / (1 + i)ⁿ</strong><br /><span id="r1_formula"></span></div>
-        <div class="result-grid">
-          <div class="result-card">
-            <div class="val" id="r1_interes"></div>
-            <div class="lbl">Interés total</div>
-          </div>
-          <div class="result-card">
-            <div class="val green" id="r1_desc"></div>
-            <div class="lbl">Descuento %</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<!--valor futuro-->
+  <!--VALOR FUTURO-->
   <div class="calc-panel" id="p2">
     <div>Valor Futuro</div>
     <div class="fields">
-        <div class="field"><label>Valor Presente (VP)</label><input type="number" id="vf_vp" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="vf_r" step="0.01"/></div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="vf_n" /></div>
-    <!--valor futuro-->
-    <div class="calc-panel" id="p2">
-      <div>Valor Futuro</div>
-      <div class="fields">
-        <div class="field"><label>Valor Presente (VP)</label><input type="number" id="vf_vp" value="5000" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="vf_r" value="10" step="0.01" />
-        </div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="vf_n" value="3" /></div>
-        <div class="field"><label>Tipo</label>
-          <select id="vf_tipo">
-            <option value="mensual">Mensual</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="semestral">Semestral</option>
-            <option value="anual">Anual</option>
-          </select>
-        </div>
+      <div class="field"><label>Valor Presente (VP)</label><input type="number" id="vf_vp" value="5000" /></div>
+      <div class="field"><label>Tasa de interés (%)</label><input type="number" id="vf_r" value="10" step="0.01" /></div>
+      <div class="field"><label>Períodos (n)</label><input type="number" id="vf_n" value="3" /></div>
+      <div class="field"><label>Tipo</label>
+        <select id="vf_tipo">
+          <option value="mensual">Mensual</option>
+          <option value="trimestral">Trimestral</option>
+          <option value="semestral">Semestral</option>
+          <option value="anual">Anual</option>
+        </select>
       </div>
-      <button class="calc-btn" onclick="calcVF()">Calcular VF →</button>
-      <div class="result-box" id="r2">
-        <div class="result-label">Valor Futuro</div>
-        <div class="result-main" id="r2_vf"></div>
-        <div class="formula-box"><strong>VF = VP * (1 + i)ⁿ</strong><br /><span id="r2_formula"></span></div>
-        <div class="result-grid">
-          <div class="result-card">
-            <div class="val" id="r2_interes"></div>
-            <div class="lbl">Interés total</div>
-          </div>
-          <div class="result-card">
-            <div class="val green" id="r2_desc"></div>
-            <div class="lbl">Incremento %</div>
-          </div>
+    </div>
+    <button class="calc-btn" onclick="calcVF()">Calcular VF →</button>
+    <div class="result-box" id="r2">
+      <div class="result-label">Valor Futuro</div>
+      <div class="result-main" id="r2_vf"></div>
+      <div class="formula-box"><strong>VF = VP * (1 + i)ⁿ</strong></div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="val" id="r2_interes"></div>
+          <div class="lbl">Interés total</div>
+        </div>
+        <div class="result-card">
+          <div class="val green" id="r2_inc"></div>
+          <div class="lbl">Incremento %</div>
         </div>
       </div>
     </div>
   </div>
-<!--Interes Simple-->
-<div class="calc-panel" id="p3">
-  <div>Interés Simple</div>
-  <div class="fields">
-    <div class="field">
-      <label>Capital Inicial (C)</label>
-      <input type="number" id="is_c"/>
-    </div>
-    <div class="field">
-      <label>Tasa de interés (%)</label>
-      <input type="number" id="is_r" step="0.01"/>
-    </div>
-    <div class="field">
-      <label>Períodos (n)</label>
-      <input type="number" id="is_n"/>
-    </div>
-    <div class="field">
-      <label>Tipo</label>
-      <select id="is_tipo">
-        <option value="mensual">Mensual</option>
-        <option value="trimestral">Trimestral</option>
-        <option value="semestral">Semestral</option>
-        <option value="anual">Anual</option>
-      </select>
-    </div>
-  </div>
-  <button class="calc-btn" onclick="calcIS()">Calcular Interés →</button>
-  <div class="result-box" id="r3">
-    <div class="result-label">Interés Generado</div>
-    <div class="result-main" id="r3_interes"></div>
-    <div class="formula-box"><strong>I = C * i * n</strong></div>
-    <div class="result-grid">
-      <div class="result-card">
-        <div class="val" id="r3_total"></div>
-        <div class="lbl">Monto Total</div>
+
+  <!--INTERÉS SIMPLE-->
+  <div class="calc-panel" id="p3">
+    <div>Interés Simple</div>
+    <div class="fields">
+      <div class="field"><label>Capital Inicial (C)</label><input type="number" id="is_c" value="5000" /></div>
+      <div class="field"><label>Tasa de interés (%)</label><input type="number" id="is_r" value="10" step="0.01" /></div>
+      <div class="field"><label>Períodos (n)</label><input type="number" id="is_n" value="3" /></div>
+      <div class="field"><label>Tipo</label>
+        <select id="is_tipo">
+          <option value="mensual">Mensual</option>
+          <option value="trimestral">Trimestral</option>
+          <option value="semestral">Semestral</option>
+          <option value="anual">Anual</option>
+        </select>
       </div>
-      <div class="result-card">
-        <div class="val green" id="r3_desc"></div>
-        <div class="lbl">Interés %</div>
+    </div>
+    <button class="calc-btn" onclick="calcIS()">Calcular Interés →</button>
+    <div class="result-box" id="r3">
+      <div class="result-label">Interés Generado</div>
+      <div class="result-main" id="r3_interes"></div>
+      <div class="formula-box"><strong>I = C * i * n</strong></div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="val" id="r3_total"></div>
+          <div class="lbl">Monto Total</div>
+        </div>
+        <div class="result-card">
+          <div class="val green" id="r3_desc"></div>
+          <div class="lbl">Interés %</div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-  <!--Interes compuesto-->
+
+  <!--INTERÉS COMPUESTO-->
   <div class="calc-panel" id="p4">
     <div>Interés Compuesto</div>
     <div class="fields">
-        <div class="field"><label>Capital Inicial (C)</label><input type="number" id="ic_c" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="ic_r"  step="0.01"/></div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="ic_n" /></div>
-    <!--Interes Simple-->
-    <div class="calc-panel" id="p3">
-      <div>Interés Simple</div>
-      <div class="fields">
-        <div class="field"><label>Capital Inicial (C)</label><input type="number" id="is_c" value="5000" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="is_r" value="10" step="0.01" />
-        </div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="is_n" value="3" /></div>
-        <div class="field"><label>Tipo</label>
-          <select id="is_tipo">
-            <option value="anual">Anual</option>
-            <option value="mensual">Mensual</option>
-            <option value="trimestral">Trimestral</option>
-          </select>
-        </div>
-      </div>
-      <button class="calc-btn" onclick="calcIS()">Calcular Interés →</button>
-      <div class="result-box" id="r3">
-        <div class="result-label">Interés Generado</div>
-        <div class="result-main" id="r3_interes"></div>
-        <div class="formula-box"><strong>I = C * i * n</strong><br /><span id="r3_formula"></span></div>
-        <div class="result-grid">
-          <div class="result-card">
-            <div class="val" id="r3_total"></div>
-            <div class="lbl">Monto Total</div>
-          </div>
-          <div class="result-card">
-            <div class="val green" id="r3_desc"></div>
-            <div class="lbl">Descuento %</div>
-          </div>
-        </div>
+      <div class="field"><label>Capital Inicial (C)</label><input type="number" id="ic_c" value="5000" /></div>
+      <div class="field"><label>Tasa de interés (%)</label><input type="number" id="ic_r" value="10" step="0.01" /></div>
+      <div class="field"><label>Períodos (n)</label><input type="number" id="ic_n" value="3" /></div>
+      <div class="field"><label>Tipo</label>
+        <select id="ic_tipo">
+          <option value="mensual">Mensual</option>
+          <option value="trimestral">Trimestral</option>
+          <option value="semestral">Semestral</option>
+          <option value="anual">Anual</option>
+        </select>
       </div>
     </div>
-    <!--Interes compuesto-->
-    <div class="calc-panel" id="p4">
-      <div>Interés Compuesto</div>
-      <div class="fields">
-        <div class="field"><label>Capital Inicial (C)</label><input type="number" id="ic_c" value="5000" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="ic_r" value="10" step="0.01" />
+    <button class="calc-btn" onclick="calcIC()">Calcular VF →</button>
+    <div class="result-box" id="r4">
+      <div class="result-label">Valor Futuro</div>
+      <div class="result-main" id="r4_total"></div>
+      <div class="formula-box"><strong>VF = VP * (1 + i)ⁿ</strong></div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="val" id="r4_interes"></div>
+          <div class="lbl">Interés total</div>
         </div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="ic_n" value="3" /></div>
-        <div class="field"><label>Tipo</label>
-          <select id="ic_tipo">
-            <option value="mensual">Mensual</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="semestral">Semestral</option>
-            <option value="anual">Anual</option>
-          </select>
-        </div>
-      </div>
-      <button class="calc-btn" onclick="calcIC()">Calcular VF →</button>
-      <div class="result-box" id="r4">
-        <div class="result-label">Valor Futuro</div>
-<<<<<<< HEAD
-        <div class="result-main" id="r4_total"></div>
-        <div class="formula-box"><strong>VF = VP * (1 + i)ⁿ</strong><br/><span id="r4_formula"></span></div>
-=======
-        <div class="result-main" id="r4_vf"></div>
-        <div class="formula-box"><strong>VF = VP * (1 + i)ⁿ</strong><br /><span id="r4_formula"></span></div>
->>>>>>> dev/jessy
-        <div class="result-grid">
-          <div class="result-card">
-            <div class="val" id="r4_interes"></div>
-            <div class="lbl">Interés total</div>
-          </div>
-          <div class="result-card">
-            <div class="val green" id="r4_desc"></div>
-            <div class="lbl">Incremento %</div>
-          </div>
+        <div class="result-card">
+          <div class="val green" id="r4_desc"></div>
+          <div class="lbl">Incremento %</div>
         </div>
       </div>
     </div>
   </div>
-  <!-- CUOTAS Y PAGOS -->
+
+  <!--CUOTAS Y PAGOS-->
   <div class="calc-panel" id="p5">
     <div>Cuotas y Pagos Periódicos</div>
     <div class="fields">
-        <div class="field"><label>Monto del Préstamo (P)</label><input type="number" id="cp_p"/></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="cp_r" step="0.01"/></div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="cp_n"/></div>
-    <!-- CUOTAS Y PAGOS -->
-    <div class="calc-panel" id="p5">
-      <div>Cuotas y Pagos Periódicos</div>
-      <div class="fields">
-        <div class="field"><label>Monto del Préstamo (P)</label><input type="number" id="cp_p" value="20000" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="cp_r" value="12" step="0.01" />
-        </div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="cp_n" value="24" /></div>
-        <div class="field"><label>Tipo</label>
-          <select id="cp_tipo">
-            <option value="mensual">Mensual</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="semestral">Semestral</option>
-            <option value="anual">Anual</option>
-          </select>
-        </div>
+      <div class="field"><label>Monto del Préstamo (P)</label><input type="number" id="cp_p" value="20000" /></div>
+      <div class="field"><label>Tasa de interés (%)</label><input type="number" id="cp_r" value="12" step="0.01" /></div>
+      <div class="field"><label>Períodos (n)</label><input type="number" id="cp_n" value="24" /></div>
+      <div class="field"><label>Tipo</label>
+        <select id="cp_tipo">
+          <option value="mensual">Mensual</option>
+          <option value="trimestral">Trimestral</option>
+          <option value="semestral">Semestral</option>
+          <option value="anual">Anual</option>
+        </select>
       </div>
-      <button class="calc-btn" onclick="calcCP()">Calcular Cuota →</button>
-      <div class="result-box" id="r5">
-        <div class="result-label">Cuota Periódica</div>
-        <div class="result-main" id="r5_cuota"></div>
-        <div class="formula-box"><strong>A = P * [i / (1 - (1 + i)⁻ⁿ)]</strong><br /><span id="r5_formula"></span></div>
-        <div class="result-grid">
-          <div class="result-card">
-            <div class="val" id="r5_total"></div>
-            <div class="lbl">Pago Total</div>
-          </div>
-          <div class="result-card">
-            <div class="val green" id="r5_interes"></div>
-            <div class="lbl">Interés Total</div>
-          </div>
+    </div>
+    <button class="calc-btn" onclick="calcCP()">Calcular Cuota →</button>
+    <div class="result-box" id="r5">
+      <div class="result-label">Cuota Periódica</div>
+      <div class="result-main" id="r5_cuota"></div>
+      <div class="formula-box"><strong>A = P * [i / (1 - (1 + i)⁻ⁿ)]</strong></div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="val" id="r5_total"></div>
+          <div class="lbl">Pago Total</div>
+        </div>
+        <div class="result-card">
+          <div class="val green" id="r5_interes"></div>
+          <div class="lbl">Interés Total</div>
         </div>
       </div>
     </div>
   </div>
-  <!--AMORTIZACIÓN francesa -->
+
+  <!--AMORTIZACIÓN FRANCESA-->
   <div class="calc-panel" id="p6">
     <div>Amortización Francesa</div>
+    <p style="text-align:center; color:var(--muted); font-size:13px; margin-bottom:10px;">
+      Requiere un cliente seleccionado con capacidad de pago suficiente.
+    </p>
     <div class="fields">
-        <div class="field"><label>Capital Inicial (P)</label><input type="number" id="af_p" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="af_r"  step="0.01"/></div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="af_n" /></div>
-    <!--AMORTIZACIÓN francesa -->
-    <div class="calc-panel" id="p6">
-      <div>Amortización Francesa</div>
-      <div class="fields">
-        <div class="field"><label>Capital Inicial (P)</label><input type="number" id="af_p" value="20000" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="af_r" value="12" step="0.01" />
-        </div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="af_n" value="24" /></div>
-        <div class="field"><label>Tipo</label>
-          <select id="af_tipo">
-            <option value="mensual">Mensual</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="semestral">Semestral</option>
-            <option value="anual">Anual</option>
-          </select>
-        </div>
-      </div>
-      <button class="calc-btn" onclick="calcAF()">Calcular Cuota →</button>
-      <div class="result-box" id="r6">
-        <div class="result-label">Cuota Periódica</div>
-        <div class="result-main" id="r6_cuota"></div>
-        <div class="formula-box"><strong>A = P * [i / (1 - (1 + i)⁻ⁿ)]</strong><br /><span id="r6_formula"></span></div>
-        <div class="result-grid">
-          <div class="result-card">
-            <div class="val" id="r6_total"></div>
-            <div class="lbl">Pago Total</div>
-          </div>
-          <div class="result-card">
-            <div class="val green" id="r6_interes"></div>
-            <div class="lbl">Interés Total</div>
-          </div>
-        </div>
-        <div id="r6_tabla"></div>
+      <div class="field"><label>Capital Inicial (P)</label><input type="number" id="af_p" value="20000" /></div>
+      <div class="field"><label>Tasa de interés (%)</label><input type="number" id="af_r" value="12" step="0.01" /></div>
+      <div class="field"><label>Períodos (n)</label><input type="number" id="af_n" value="24" /></div>
+      <div class="field"><label>Tipo</label>
+        <select id="af_tipo">
+          <option value="mensual">Mensual</option>
+          <option value="trimestral">Trimestral</option>
+          <option value="semestral">Semestral</option>
+          <option value="anual">Anual</option>
+        </select>
       </div>
     </div>
-  </div>
-  <!--AMORTIZACIÓN ALEMANA -->
-  <div class="calc-panel" id="p7">
-    <div>Amortización Alemana</div>
-    <div class="fields">
-        <div class="field"><label>Capital Inicial (C)</label><input type="number" id="aa_c" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="aa_r" step="0.01"/></div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="aa_n"/></div>
-    <!--AMORTIZACIÓN ALEMANA -->
-    <div class="calc-panel" id="p7">
-      <div>Amortización Alemana</div>
-      <div class="fields">
-        <div class="field"><label>Capital Inicial (C)</label><input type="number" id="aa_c" value="15000" /></div>
-        <div class="field"><label>Tasa de interés (%)</label><input type="number" id="aa_r" value="9" step="0.01" />
+    <button class="calc-btn" onclick="calcAF()">Calcular Cuota →</button>
+    <div class="result-box" id="r6">
+      <div class="result-label">Cuota Periódica</div>
+      <div class="result-main" id="r6_cuota"></div>
+      <div class="formula-box"><strong>A = P * [i / (1 - (1 + i)⁻ⁿ)]</strong></div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="val" id="r6_total"></div>
+          <div class="lbl">Pago Total</div>
         </div>
-        <div class="field"><label>Períodos (n)</label><input type="number" id="aa_n" value="36" /></div>
-        <div class="field"><label>Tipo</label>
-          <select id="aa_tipo">
-            <option value="mensual">Mensual</option>
-            <option value="trimestral">Trimestral</option>
-            <option value="semestral">Semestral</option>
-            <option value="anual">Anual</option>
-          </select>
+        <div class="result-card">
+          <div class="val green" id="r6_interes"></div>
+          <div class="lbl">Interés Total</div>
         </div>
       </div>
-      <button class="calc-btn" onclick="calcAA()">Calcular Cuota →</button>
-      <div class="result-box" id="r7">
-        <div class="result-label">Cuota del Período 1</div>
-        <div class="result-main" id="r7_cuota"></div>
-        <div class="formula-box"><strong>A₁ = (C / n) + (C - (k - 1) * (C / n)) * i</strong><br /><span
-            id="r7_formula"></span></div>
-        <div class="result-grid"> 
-          <div class="result-card">
-            <div class="val" id="r7_total"></div>
-            <div class="lbl">Pago Total</div>
-          </div>
-          <div class="result-card">
-            <div class="val green" id="r7_interes"></div>
-            <div class="lbl">Interés Total</div>
-          </div>
+      <div id="r6_tabla"></div>
+    </div>
+  </div>
+
+  <!--AMORTIZACIÓN ALEMANA-->
+  <div class="calc-panel" id="p7">
+    <div>Amortización Alemana</div>
+    <p style="text-align:center; color:var(--muted); font-size:13px; margin-bottom:10px;">
+      Requiere un cliente seleccionado con capacidad de pago suficiente.
+    </p>
+    <div class="fields">
+      <div class="field"><label>Capital Inicial (C)</label><input type="number" id="aa_c" value="15000" /></div>
+      <div class="field"><label>Tasa de interés (%)</label><input type="number" id="aa_r" value="9" step="0.01" /></div>
+      <div class="field"><label>Períodos (n)</label><input type="number" id="aa_n" value="36" /></div>
+      <div class="field"><label>Tipo</label>
+        <select id="aa_tipo">
+          <option value="mensual">Mensual</option>
+          <option value="trimestral">Trimestral</option>
+          <option value="semestral">Semestral</option>
+          <option value="anual">Anual</option>
+        </select>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcAA()">Calcular Cuota →</button>
+    <div class="result-box" id="r7">
+      <div class="result-label">Cuota del Período 1</div>
+      <div class="result-main" id="r7_cuota"></div>
+      <div class="formula-box"><strong>A₁ = (C / n) + (C - (k - 1) * (C / n)) * i</strong></div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="val" id="r7_total"></div>
+          <div class="lbl">Pago Total</div>
+        </div>
+        <div class="result-card">
+          <div class="val green" id="r7_interes"></div>
+          <div class="lbl">Interés Total</div>
         </div>
       </div>
       <div id="r7_tabla"></div>
     </div>
-  </section>
+  </div>
+ </section>
+
   <!--SECCIÓN: CUESTIONARIO -->
   <section id="cuestionario" class="content-section">
     <h2>Cuestionario de Evaluación</h2>
@@ -877,6 +527,7 @@
       <div id="resultado-quiz"></div>
     </div>
   </section>
+
   <!--SECCIÓN: ACERCA DE -->
   <section id="acerca" class="content-section">
     <div class="section-header">
