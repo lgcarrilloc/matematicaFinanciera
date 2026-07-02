@@ -26,7 +26,9 @@ function limpiarResultados(){
 
 function limpiarCampos(){
     document.querySelectorAll("input")
-    .forEach(c => c.value = "");
+    .forEach(c => {
+        if(!c.closest("#clientePanel")) c.value = "";
+    });
 }
 
 //inicio de la aplicación
@@ -39,6 +41,8 @@ window.onload = function(){
     .forEach(p => p.classList.remove("active"));
     document.querySelectorAll(".result-box")
     .forEach(r => r.classList.remove("show"));
+
+    pintarClientes();
 };
 
 
@@ -109,6 +113,7 @@ function mostrarEjercicio(id){
     .forEach(b => b.classList.remove("active"));
     limpiarCampos();
     const mapa = {
+        clientes: "clientePanel",
         ejercicio1: "p1",
         ejercicio2: "p2",
         ejercicio3: "p3",
@@ -359,3 +364,62 @@ function calcularPuntaje(){
 
 
 
+
+
+// ================= Gestión de Clientes =================
+let clientes = JSON.parse(localStorage.getItem("clientesMF")) || [];
+
+function guardarCliente(){
+    const cedula   = recuperaraTexto("cedula").trim();
+    const nombre   = recuperaraTexto("nombre").trim();
+    const apellido = recuperaraTexto("apellido").trim();
+    const ingresos = recuperarFloat("ingresos");
+    const egresos  = recuperarFloat("egresos");
+    const telefono = recuperaraTexto("telefono").trim();
+    const correo   = recuperaraTexto("correo").trim();
+
+    if(!cedula || !nombre || !apellido || isNaN(ingresos) || isNaN(egresos)){
+        alert("Complete al menos cédula, nombre, apellido, ingresos y egresos.");
+        return;
+    }
+    if(clientes.some(c => c.cedula === cedula)){
+        alert("Ya existe un cliente registrado con esa cédula.");
+        return;
+    }
+
+    clientes.push({ cedula, nombre, apellido, ingresos, egresos, telefono, correo });
+    localStorage.setItem("clientesMF", JSON.stringify(clientes));
+
+    pintarClientes();
+    limpiarCliente();
+}
+
+function limpiarCliente(){
+    ["cedula","nombre","apellido","ingresos","egresos","telefono","correo"]
+    .forEach(id => document.getElementById(id).value = "");
+}
+
+function eliminarCliente(cedula){
+    clientes = clientes.filter(c => c.cedula !== cedula);
+    localStorage.setItem("clientesMF", JSON.stringify(clientes));
+    pintarClientes();
+}
+
+function pintarClientes(){
+    const tbody = document.getElementById("tablaClientes");
+    if(!tbody) return;
+    tbody.innerHTML = "";
+    clientes.forEach(c => {
+        tbody.innerHTML += `
+        <tr>
+          <td>${c.cedula}</td>
+          <td>${c.nombre}</td>
+          <td>${c.apellido}</td>
+          <td>${fmt(c.ingresos)}</td>
+          <td>${fmt(c.egresos)}</td>
+          <td>${c.telefono}</td>
+          <td>${c.correo}</td>
+          <td><button class="calc-btn" onclick="eliminarCliente('${c.cedula}')">Eliminar</button></td>
+        </tr>`;
+    });
+}

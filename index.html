@@ -173,7 +173,9 @@
     <h2>Calculadora de Ejercicios</h2>
     <p>Resuelve ejercicios prácticos de matemática financiera utilizando nuestra calculadora interactiva.</p>
   </div>
+
   <div class="topics-nav">
+    <button class="topic-btn" onclick="mostrarEjercicio('clientes')"><span class="number">👤 </span>Clientes</button>
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio1')"><span class="number">T1 </span>ValorPresente</button>
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio2')"><span class="number">T2 </span>Valor Futuro</button>
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio3')"><span class="number">T3 </span>Interés Simple</button>
@@ -181,6 +183,64 @@
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio5')"><span class="number">T5 </span>Cuotas Periódicas</button>
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio6')"><span class="number">T6 </span>Amortización Francesa</button>
     <button class="topic-btn" onclick="mostrarEjercicio('ejercicio7')"><span class="number">T7 </span>Amortización Alemana</button>
+  </div>
+
+  <!-- REGISTRO DE CLIENTES (reutiliza la clase calc-panel del CSS existente) -->
+  <div class="calc-panel" id="clientePanel">
+    <h2>Registro de Cliente</h2>
+    <div class="fields">
+        <div class="field">
+            <label>Cédula</label>
+            <input type="text" id="cedula">
+        </div>
+        <div class="field">
+            <label>Nombre</label>
+            <input type="text" id="nombre">
+        </div>
+        <div class="field">
+            <label>Apellido</label>
+            <input type="text" id="apellido">
+        </div>
+        <div class="field">
+            <label>Ingresos</label>
+            <input type="number" id="ingresos">
+        </div>
+        <div class="field">
+            <label>Egresos</label>
+            <input type="number" id="egresos">
+        </div>
+        <div class="field">
+            <label>Teléfono</label>
+            <input type="text" id="telefono">
+        </div>
+        <div class="field">
+            <label>Correo</label>
+            <input type="email" id="correo">
+        </div>
+    </div>
+    <button class="calc-btn" onclick="guardarCliente()">
+        Guardar Cliente
+    </button>
+    <button class="calc-btn" onclick="limpiarCliente()">
+        Limpiar
+    </button>
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Ingresos</th>
+                <th>Egresos</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaClientes">
+        </tbody>
+    </table>
   </div>
   <!--VALOR PRESENTE-->
   <div class="calc-panel" id="p1">
